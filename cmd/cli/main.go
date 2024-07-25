@@ -10,6 +10,17 @@ import (
 )
 
 func main() {
+
+	if !(len(os.Args) == 4 || len(os.Args) == 2 && os.Args[1] == "all") {
+		fmt.Println("Usage: note -[flag] [title] [content]")
+		return
+	}
+
+	if os.Args[1] != "-add" && os.Args[1] != "all" {
+		fmt.Println("Incorrect flag")
+		return
+	}
+
 	db, err := sql.Open("sqlite3", "./notes.db")
 	if err != nil {
 		log.Fatal(err)
@@ -32,6 +43,24 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// всё не работает, потому что нужно CGO для компиляции.
-	fmt.Println(len(os.Args), os.Args[0], os.Args[1])
+
+	if os.Args[1] == "-add" {
+		statement.Exec(os.Args[2], os.Args[3])
+	}
+
+	if os.Args[1] == "all" {
+		row, err := db.Query("SELECT id, title, content FROM notes ORDER BY id")
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer row.Close()
+
+		for row.Next() {
+			var id int
+			var title string
+			var content string
+			row.Scan(&id, &title, &content)
+			fmt.Println("ID:", id, "Title:", title, "Content:", content)
+		}
+	}
 }
