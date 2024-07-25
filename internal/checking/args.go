@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/mproni/notes/internal/database"
 	"github.com/mproni/notes/internal/handler"
 )
 
@@ -17,6 +18,8 @@ func Arguments() {
 		fmt.Println("Too many arguments. Use note -h (--help) for more info")
 		return
 	}
+
+	database.CreateTableSQL()
 
 	if len(os.Args) == 2 {
 		if os.Args[1] == "-rall" || os.Args[1] == "--read-all" {

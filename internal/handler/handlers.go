@@ -1,33 +1,44 @@
 package handler
 
+import (
+	"fmt"
+
+	"github.com/mproni/notes/internal/database"
+)
+
 func Add() {
-	//TODO
+	database.AddSQL()
+	fmt.Println("Заметка добавлена")
 }
 
 func Read() {
-	//TODO
+	database.ReadSQL()
 }
 
 func ReadAll() {
-	//TODO
+	database.ReadAllSQL()
 }
 
 func Update() {
-	//TODO
+	database.UpdateSQL()
+	fmt.Println("Заметка обновлена")
 }
 
 func UpdateTitle() {
-	//TODO
+	database.UpdateTitleSQL()
+	fmt.Println("Заголовок заметки обновлен")
 }
 
 func UpdateContent() {
-	//TODO
+	database.UpdateContentSQL()
+	fmt.Println("Содержимое заметки обновлено")
 }
 
 func Delete() {
-	//TODO
+	database.DeleteSQL()
+	fmt.Println("Заметка удалена")
 }
 
 func Help() {
-	//TODO
+	fmt.Println("no help")
 }
