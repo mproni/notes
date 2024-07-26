@@ -1,44 +1,57 @@
 package handler
 
 import (
+	"database/sql"
 	"fmt"
+	"os"
 
 	"github.com/mproni/notes/internal/database"
 )
 
-func Add() {
-	database.AddSQL()
-	fmt.Println("Заметка добавлена")
-}
+func HandleIt(db *sql.DB) {
+	if len(os.Args) == 2 {
+		switch os.Args[1] {
+		case "-rall", "--read-all":
+			database.ReadAllSQL(db)
+		case "-h", "--help":
+			fmt.Println("No help, you have to deal with this on your own")
+		}
+		return
+	}
 
-func Read() {
-	database.ReadSQL()
-}
+	if len(os.Args) == 3 {
+		switch os.Args[1] {
+		case "-r", "--read":
+			database.ReadSQL(db)
+		case "-d", "--delete":
+			database.DeleteSQL(db)
+		default:
+			fmt.Println("Incorrect flag")
+		}
+		return
+	}
 
-func ReadAll() {
-	database.ReadAllSQL()
-}
+	if len(os.Args) == 4 {
+		switch os.Args[1] {
+		case "-a", "--add":
+			database.AddSQL(db)
+		case "-ut", "--update-title":
+			database.UpdateTitleSQL(db)
+		case "-uc", "--update-content":
+			database.UpdateContentSQL(db)
+		default:
+			fmt.Println("Incorrect flag")
+		}
+		return
+	}
 
-func Update() {
-	database.UpdateSQL()
-	fmt.Println("Заметка обновлена")
-}
-
-func UpdateTitle() {
-	database.UpdateTitleSQL()
-	fmt.Println("Заголовок заметки обновлен")
-}
-
-func UpdateContent() {
-	database.UpdateContentSQL()
-	fmt.Println("Содержимое заметки обновлено")
-}
-
-func Delete() {
-	database.DeleteSQL()
-	fmt.Println("Заметка удалена")
-}
-
-func Help() {
-	fmt.Println("no help")
+	if len(os.Args) == 5 {
+		switch os.Args[1] {
+		case "-u", "--update":
+			database.UpdateSQL(db)
+		default:
+			fmt.Println("Incorrect flag")
+		}
+		return
+	}
 }

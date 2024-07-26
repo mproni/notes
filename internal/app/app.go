@@ -7,6 +7,7 @@ import (
 
 	"github.com/mproni/notes/internal/checking"
 	"github.com/mproni/notes/internal/database"
+	"github.com/mproni/notes/internal/handler"
 )
 
 func Start() {
@@ -17,4 +18,5 @@ func Start() {
 	db := database.CreateTableSQL()
 	defer db.Close()
 
+	handler.HandleIt(db)
 }

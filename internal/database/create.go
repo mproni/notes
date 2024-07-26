@@ -12,8 +12,6 @@ func CreateTableSQL() *sql.DB {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// ну ты и дурак, конечно.
-	//	defer db.Close()
 
 	createTableSQL := `CREATE TABLE IF NOT EXISTS notes (
 		        "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
