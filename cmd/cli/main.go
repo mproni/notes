@@ -1,7 +1,9 @@
 package main
 
-import "github.com/mproni/notes/internal/checking"
+import (
+	"github.com/mproni/notes/internal/app"
+)
 
 func main() {
-	checking.Arguments()
+	app.Start()
 }

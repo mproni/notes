@@ -7,7 +7,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func CreateTableSQL() {
+func CreateTableSQL() *sql.DB {
 	db, err := sql.Open("sqlite3", "./notes.db")
 	if err != nil {
 		log.Fatal(err)
@@ -25,4 +25,6 @@ func CreateTableSQL() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	return db
 }
